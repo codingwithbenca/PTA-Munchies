@@ -1,0 +1,43 @@
+<div class="search-icon-container">
+    <span class="search-icon" id="search-toggle">🔍</span>
+
+    <form class="search-bar" id="search-box" onsubmit="return searchProduct(event)">
+        <input type="text" placeholder="Search..." name="search" id="search-input">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<main>
+    <!-- Add ids to each product section -->
+    <section class="product-details" id="brownies">
+        <h2>Brownies</h2>
+        <div class="slideshow-container" id="brownie-slideshow">
+            <div class="slide">
+                <img src="2.jpg" alt="Brownie Image 1">
+            </div>
+            <div class="slide">
+                <img src="3.jpg" alt="Brownie Image 2">
+            </div>
+            <div class="slide">
+                <img src="4.jpg" alt="Brownie Image 3">
+            </div>
+        </div>
+        <p>Delicious infused brownies, perfectly balanced for a rich chocolate taste. A great choice for dessert lovers.</p>
+        <span class="price" id="brownie-price">R150 for 6</span>
+        <label for="brownie-strength">Choose your strength:</label>
+        <select id="brownie-strength" onchange="updatePrice('brownie')">
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option>
+            <option value="snoop-high">Snoop High</option>
+        </select>
+        <button onclick="addToCart('brownie')">Add to Cart</button>
+    </section>
+
+    <!-- Repeat this for each product section with corresponding ids -->
+    <section class="product-details" id="muffins">
+        <h2>Muffins</h2>
+        <!-- content -->
+    </section>
+    
+    <!-- Additional product sections -->
+</main>

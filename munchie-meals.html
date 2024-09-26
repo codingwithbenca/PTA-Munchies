@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Munchie Meals - Pretoria Munchies</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Munchie Meals</h1>
+    <div class="cart-icon-container">
+        <a href="#cart" class="cart-icon" onclick="viewCart()">
+            🛒 <span class="cart-count">0</span>
+        </a>
+    </div>
+    <button onclick="checkout()">Checkout</button>
+</header>
+
+<main>
+    <section class="product-details">
+        <h2>Pizza</h2>
+        <div class="slideshow-container" id="pizza-slideshow">
+            <div class="slide">
+                <img src="pazz.jpg" alt="Pizza Image 1">
+            </div>
+            <div class="slide">
+                <img src="pazz2.jpg" alt="Pizza Image 2">
+            </div>
+            <div class="slide">
+                <img src="pazz3.jpg" alt="Pizza Image 3">
+            </div>
+        </div>
+        <p>Our delicious infused pizza, perfect for a fulfilling meal.</p>
+        <span class="price" id="pizza-price">R80</span>
+
+        <label for="pizza-strength">Choose your strength:</label>
+        <select id="pizza-strength" onchange="updatePrice('pizza')">
+            <option value="Moderate">Moderate</option>
+            <option value="High">High</option><!--add by 20-->
+            <option value="Snoop High">Snoop High</option><!--add by 30-->
+        </select>
+
+        <button onclick="addToCart('pizza')">Add to Cart</button>
+    </section>
+
+   <section class="product-details">
+    <h2>Chicken Wings</h2>
+    <div class="slideshow-container" id="chicken-wings-slideshow">
+        <div class="slide">
+            <img src="chicken-wings1.jpg" alt="Chicken Wings Image 1">
+        </div>
+        <div class="slide">
+            <img src="chicken-wings2.jpg" alt="Chicken Wings Image 2">
+        </div>
+        <div class="slide">
+            <img src="chicken-wings3.jpg" alt="Chicken Wings Image 3">
+        </div>
+    </div>
+    <p>Spicy infused chicken wings to satisfy your munchie cravings.</p>
+    <span class="price" id="chicken-wings-price">R170</span>
+
+    <label for="chicken-wings-strength">Choose your strength:</label>
+    <select id="chicken-wings-strength" onchange="updatePrice('chicken_wings')">
+        <option value="Moderate">Moderate</option>
+        <option value="High">High</option><!-- price is 200 -->
+        <option value="Snoop High">Snoop High</option><!-- price is 210 -->
+    </select>
+
+    <button onclick="addToCart('chicken_wings')">Add to Cart</button>
+</section>
+
+
+    <section class="product-details">
+        <h2>Spaghetti</h2>
+        <div class="slideshow-container" id="spaghetti-slideshow">
+            <div class="slide">
+                <img src="spaghetti1.jpg" alt="Spaghetti Image 1">
+            </div>
+            <div class="slide">
+                <img src="spaghetti2.jpg" alt="Spaghetti Image 2">
+            </div>
+            <div class="slide">
+                <img src="spaghetti3.jpg" alt="Spaghetti Image 3">
+            </div>
+        </div>
+        <p>Tasty infused spaghetti, cooked to perfection with rich flavors.</p>
+        <span class="price" id="spaghetti-price">R90</span>
+
+        <label for="spaghetti-strength">Choose your strength:</label>
+        <select id="spaghetti-strength" onchange="updatePrice('spaghetti')">
+            <option value="Moderate">Moderate</option>
+            <option value="High">High</option><!--add by 10-->
+            <option value="Snoop High">Snoop High</option><!--add by 20-->
+        </select>
+
+        <button onclick="addToCart('spaghetti')">Add to Cart</button>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Pretoria Munchies. All rights reserved.</p>
+    </div>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+	<div class="social-icons">
+        <a href="https://facebook.com" class="icon facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me" class="icon whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://instagram.com" class="icon instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</footer>
+
+<script>
+    const prices = {
+        pizza: { base: 80, high: 100, snoop: 110 },
+        chicken_wings: { base: 170, high: 200, snoop: 210 },
+        spaghetti: { base: 90, high: 100, snoop: 110 }
+    };
+
+   let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Function to update cart item count
+function updateCartCount() {
+    const cartCount = document.querySelector('.cart-count');
+    cartCount.textContent = cart.length;
+}
+
+// Function to update the price based on selected strength
+function updatePrice(product) {
+    const strengthSelect = document.getElementById(`${product}-strength`);
+    const priceSpan = document.querySelector(`#${product}-price`);
+    const basePrice = prices[product].base;
+    let newPrice = basePrice;
+
+    switch (strengthSelect.value) {
+        case 'High':
+            newPrice = prices[product].high; // Use the high price
+            break;
+        case 'Snoop High':
+            newPrice = prices[product].snoop; // Use the snoop high price
+            break;
+    }
+
+    if (priceSpan) {
+        priceSpan.textContent = `R${newPrice}`;
+    }
+}
+
+// Function to add items to the cart
+function addToCart(product) {
+    const strengthSelect = document.getElementById(`${product}-strength`);
+    const strength = strengthSelect.value;
+
+    const cartItem = {
+        product: product,
+        strength: strength,
+        price: prices[product][strength.toLowerCase()] || prices[product].base,
+        quantity: 1
+    };
+
+    cart.push(cartItem);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert(`${product.charAt(0).toUpperCase() + product.slice(1)} added to cart!`);
+}
+
+// Function to remove items from the cart
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    viewCart();
+}
+
+// Function to view cart items
+function viewCart() {
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartOutput = "Your Cart:\n";
+
+    if (cartItems.length === 0) {
+        cartOutput += "Your cart is empty.";
+    } else {
+        cartItems.forEach((item, index) => {
+            cartOutput += `${item.quantity} x ${item.product.charAt(0).toUpperCase() + item.product.slice(1)} - R${item.price} (Strength: ${item.strength})\n`;
+            cartOutput += `Remove: <button onclick="removeFromCart(${index})">Remove</button>\n`;
+        });
+    }
+
+    alert(cartOutput);
+}
+
+// Function to calculate the total price of cart items
+function calculateTotal() {
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price * item.quantity; // Calculate total based on quantity
+    });
+    return total.toFixed(2); // Return total rounded to 2 decimal places
+}
+
+// Function to checkout and send the order via WhatsApp
+function checkout() {
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cartItems.length === 0) {
+        alert("Your cart is empty. Add items to the cart before checking out.");
+        return;
+    }
+
+    let message = "Your order:\n";
+    cartItems.forEach(item => {
+        message += `${item.quantity} x ${item.product.charAt(0).toUpperCase() + item.product.slice(1)} - R${item.price} (Strength: ${item.strength})\n`;
+    });
+
+    const total = calculateTotal(); // Get the total
+    message += `\nTotal: R${total}\n`; // Add total to the message
+
+    const phoneNumber = "+27670643226"; // Your phone number
+    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    
+    // Clear the cart and refresh the page
+    localStorage.removeItem('cart'); // Remove the cart from local storage
+    window.open(url); // Open the WhatsApp link
+    setTimeout(() => {
+        location.reload(); // Refresh the page after 1 second
+    }, 1000);
+}
+
+// Slideshow functionality
+function startSlideshow(slideshowId) {
+    const slides = document.querySelectorAll(`#${slideshowId} .slide`);
+    let currentSlide = 0;
+
+    slides[currentSlide].style.display = 'block';
+    setInterval(() => {
+        slides[currentSlide].style.display = 'none';
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].style.display = 'block';
+    }, 3000); // Change slide every 3 seconds
+}
+
+// Initialize the slideshows
+startSlideshow('pizza-slideshow');
+startSlideshow('chicken-wings-slideshow');
+startSlideshow('spaghetti-slideshow');
+
+// Call this function to update cart count on page load
+updateCartCount();
+
+</script>
+
+</body>
+</html>
+
+
+
+
+<style>
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Adjust as needed */
+    overflow: hidden;
+}
+
+/* Slide images */
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    animation: slideAnimation 3s ease-in-out infinite;
+}
+
+/* Make the first slide visible */
+.slide:nth-child(1) {
+    display: block;
+}
+
+/* Keyframes for 3D sliding motion */
+@keyframes slideAnimation {
+    0% {
+        transform: translateX(100%) rotateY(0);
+        opacity: 0;
+    }
+    25% {
+        transform: translateX(0) rotateY(-10deg);
+        opacity: 1;
+    }
+    75% {
+        transform: translateX(0) rotateY(10deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%) rotateY(0);
+        opacity: 0;
+    }
+}
+
+/* Additional styling for images */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAF3E0; /* Light wheat background for a warm, welcoming look */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #6B4226; /* Dark brown for a rich, earthy header */
+    color: #FAF3E0;
+}
+
+h1 {
+    font-size: 26px;
+    color: #FFD700; /* Gold text for a luxurious feel */
+    margin: 0;
+}
+
+.cart-icon {
+    display: inline-flex; /* Aligns items in a row */
+    align-items: center; /* Centers items vertically */
+    background-color: #007bff; /* A blue background */
+    color: white; /* White text color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 8px 12px; /* Padding for some space */
+    font-size: 16px; /* Font size */
+    text-decoration: none; /* No underline for links */
+    transition: background-color 0.3s; /* Smooth background color change */
+}
+
+.cart-icon:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+#cart-count {
+    background-color: #dc3545; /* Red background for the count */
+    border-radius: 50%; /* Circular background */
+    padding: 2px 6px; /* Padding for some space */
+    margin-left: 5px; /* Space between the icon and the count */
+    font-weight: bold; /* Bold text */
+    font-size: 14px; /* Font size */
+    color: white; /* White text color */
+    position: relative; /* Positioning for the circle */
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #FF5733; /* Bright orange for call-to-action buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #C13D20; /* Darker shade on hover */
+}
+
+
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.slide:first-child img {
+    display: block; /* Show the first slide by default */
+}
+
+.product-details {
+    background-color: #FFF8DC;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #8B4513; /* Saddle brown for product titles */
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #333;
+    font-size: 16px;
+}
+
+.price {
+    font-size: 18px;
+    color: #C13D20;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+select {
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Footer styles */
+footer {
+    background-color: #6B4226;
+    color: #FAF3E0;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-container div {
+    flex: 1;
+    margin: 10px;
+}
+
+.footer-social a {
+    margin: 0 10px;
+    font-size: 24px;
+    color: #FAF3E0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #FFD700; /* Gold hover effect */
+}
+
+.footer-newsletter input[type="email"] {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    width: 70%;
+    margin-right: 10px;
+}
+
+.footer-newsletter button {
+    padding: 10px 20px;
+    background-color: #FF5733;
+    color: #FAF3E0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.footer-newsletter button:hover {
+    background-color: #C13D20;
+}
+
+</style>

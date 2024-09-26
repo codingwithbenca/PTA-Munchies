@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wines - Pretoria Munchies</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Wines</h1>
+</header>
+
+<main>
+    <section class="product-details">
+        <h2>Red Wine</h2>
+        <img src="red-wine.jpg" alt="Red Wine">
+        <p>A fine selection of red wines, perfect for any occasion.</p>
+        <span class="price">R120</span>
+        <button>Add to Cart</button>
+    </section>
+
+    <section class="product-details">
+        <h2>White Wine</h2>
+        <img src="white-wine.jpg" alt="White Wine">
+        <p>Crisp and refreshing white wines to pair with your meals.</p>
+        <span class="price">R110</span>
+        <button>Add to Cart</button>
+    </section>
+</main>
+
+<!-- Red Tape Overlay for Under Construction -->
+<div class="construction-tape">
+    <span>Under Construction</span>
+</div>
+<div class="construction-tape second">
+    <span>Under Construction</span>
+</div>
+
+<footer>
+    <p>&copy; 2024 Pretoria Munchies</p>
+</footer>
+
+</body>
+</html>
+<style>
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+header {
+    background-color: #f4f4f4;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+}
+
+main {
+    padding: 20px;
+}
+
+.product-details {
+    margin-bottom: 30px;
+}
+
+.product-details img {
+    width: 100%;
+    height: auto;
+}
+
+.price {
+    font-size: 22px;
+    color: #d9534f;
+    margin-top: 10px;
+    display: block;
+}
+
+button {
+    background-color: #5cb85c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+/* Red Tape Overlay for Under Construction */
+.construction-tape {
+    position: fixed;
+    top: 20%; /* Adjusted for mobile */
+    left: -10px;
+    right: -10px;
+    background-color: #d9534f;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 18px;
+    transform: rotate(-10deg); /* Less extreme for mobile */
+    z-index: 999; /* Make sure the tape is on top */
+}
+
+.construction-tape.second {
+    top: 30%; /* Adjusted for mobile */
+    transform: rotate(10deg);
+}
+
+.construction-tape span {
+    font-weight: bold;
+}
+
+/* Add red tint and hover effect to button */
+button {
+    background-color: #d9534f; /* Red for construction theme */
+}
+
+button:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
+
+footer {
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: center;
+    color: #333;
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 22px;
+    }
+
+    .product-details {
+        margin-bottom: 20px;
+    }
+
+    .price {
+        font-size: 18px;
+    }
+
+    .construction-tape {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .construction-tape.second {
+        top: 25%; /* Adjusted second tape for mobile */
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 20px;
+    }
+
+    .construction-tape {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .construction-tape.second {
+        top: 20%;
+    }
+
+    .product-details img {
+        width: 90%; /* Slight reduction for smaller screens */
+        margin: 0 auto;
+    }
+
+    .price {
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+</style>

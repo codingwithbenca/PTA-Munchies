@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pretoria Munchies</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+</section>
+
+
+
+    <nav class="nav-links">
+        <div class="close-menu">&times;</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <div class="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+		
+        <div class="logo-title">
+	
+            <h1>Pretoria Munchies</h1>
+			
+			
+    <div class="search-icon-container">
+        <span class="search-icon" id="search-toggle">🔍</span>
+        <form class="search-bar" id="search-box" onsubmit="handleSearch(event)">
+            <input type="text" id="search-input" placeholder="Search..." name="search" oninput="autocomplete(this)" required>
+            <button type="submit">Search</button>
+        </form>
+        <div id="suggestions" class="suggestions-container"></div> <!-- Suggestions dropdown -->
+    </div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pop-up Welcome Message</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Pop-up Message Styles */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            border-radius: 8px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup h2 {
+            margin: 0;
+            color: #2E8B57; /* SeaGreen */
+            font-size: 22px;
+        }
+
+        .popup p {
+            font-size: 16px;
+            color: #333;
+            margin: 15px 0;
+        }
+
+        .popup .cta {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup .cta:hover {
+            background-color: #c9302c;
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        /* Overlay */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Pop-up Message -->
+<div class="popup-overlay" id="popup-overlay"></div>
+<div class="popup" id="popup">
+    <span class="close" id="popup-close">&times;</span>
+    <h2>Welcome to Pretoria Munchies!</h2>
+    <p>We're excited to serve you! Currently, we operate in <strong>Soshanguve</strong> and <strong>Pretoria CBD</strong>.</p>
+    <p>Enjoy free delivery on all orders! We guarantee quick service and fresh meals.</p>
+    <button class="cta" id="popup-cta">Shop Now</button>
+</div>
+
+<script>
+    // Function to show pop-up at regular intervals (every 3 minutes)
+    function showPopupEvery3Minutes() {
+        const popup = document.getElementById('popup');
+        const overlay = document.getElementById('popup-overlay');
+        const closeBtn = document.getElementById('popup-close');
+        const ctaBtn = document.getElementById('popup-cta');
+        const threeMinutes = 3 * 60 * 1000; // 3 minutes in milliseconds
+
+        // Get the last time the pop-up was shown from localStorage
+        const lastShown = localStorage.getItem('popupLastShown');
+        const currentTime = new Date().getTime();
+
+        // Show the pop-up if it's the first time or more than 3 minutes have passed
+        if (!lastShown || currentTime - lastShown >= threeMinutes) {
+            setTimeout(() => {
+                popup.classList.add('active');
+                overlay.classList.add('active');
+            }, 1000); // Pop-up appears after 1 second
+
+            // Update the last shown time in localStorage
+            localStorage.setItem('popupLastShown', currentTime);
+        }
+
+        // Close the pop-up when 'X' is clicked
+        closeBtn.addEventListener('click', () => {
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Close the pop-up when the overlay is clicked
+        overlay.addEventListener('click', () => {
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Redirect to edibles.html when 'Shop Now' is clicked
+        ctaBtn.addEventListener('click', () => {
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+            window.location.href = 'edibles.html'; // Redirect to edibles page
+        });
+    }
+
+    // Call the function on page load
+    window.addEventListener('load', showPopupEvery3Minutes);
+</script>
+
+</body>
+</html>
+
+	
+	</header>
+<script>
+    const searchToggle = document.getElementById('search-toggle');
+    const searchBox = document.getElementById('search-box');
+
+    searchToggle.addEventListener('click', () => {
+        searchBox.classList.toggle('active');  // Toggle 'active' class
+    });
+</script>
+        
+		
+
+		<style>
+
+/* Style specifically for the search icon */
+.search-icon-container {
+    position: absolute;
+    right: 10px;  /* Aligns the icon to the right */
+    top: 5%;
+    transform: translateY(-50%);
+}
+
+.search-icon {
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+/* Optional hover effect for better interaction */
+.search-icon:hover {
+    color: #555;  /* Change the icon color when hovered */
+}
+
+/* Search Bar - Hidden Initially */
+.search-bar {
+    display: none;  /* Hidden by default */
+    position: absolute;
+    top: 50px;  /* You can adjust this based on layout */
+    right: 10px;  /* Aligns the search bar with the icon */
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Active class to show search bar when clicked */
+.search-bar.active {
+    display: block;
+}
+
+.search-bar input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+/* Cart Icon Container */
+.cart-icon-container {
+    position: absolute;
+    left: 50px;  /* Position it slightly left of the search icon */
+    top: 5%;
+    transform: translateY(-50%);
+}
+
+/* Cart Icon */
+.cart-icon {
+    font-size: 24px;  /* Larger font size for the cart icon */
+    color: #333;
+    text-decoration: none;
+    padding: 5px;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Optional hover effect for better interaction */
+.cart-icon:hover {
+    color: #555;
+}
+
+/* Cart Count - Number of Items in Cart */
+.cart-count {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+		</style>
+   
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="intro">
+            <h2>Welcome to Pretoria Munchies</h2>
+            <p>
+                We are your go-to online snack store for all your cravings in Pretoria. Targeting students, we offer a variety of affordable and delicious munchies, from baked goods to sweet and savory snacks. Whether you're looking for a quick treat between classes or something special to munch on while you study, Pretoria Munchies has got you covered!
+            </p>
+        </div>
+    </section>
+
+<!-- Edibles Section -->
+<section id="edibles">
+    <div class="product-container">
+        <div class="product-card">
+            <div class="image-slider edibles-slider">
+                <img src="2.jpg" alt="Edibles 1" class="product-image">
+                <img src="cookie.jpg" alt="Edibles 2" class="product-image">
+                <img src="cookie 3.jpg" alt="Edibles 3" class="product-image">
+            </div>
+            <h3>Edibles</h3>
+            <p class="brief-description">Try our delicious and infused treats, perfect for satisfying cravings. Explore brownies, gummies, and more!</p>
+            <a href="edibles.html"><button class="view-more">View More</button></a>
+        </div>
+    </div>
+</section>
+
+<!-- Wines Section -->
+<section id="wines">
+    <div class="product-container">
+        <div class="product-card">
+            <div class="image-slider wines-slider">
+                <img src="wine.jpg" alt="Wines 1" class="product-image">
+                <img src="wine 2.jpg" alt="Wines 2" class="product-image">
+                <img src="wine 3.jpg" alt="Wines 3" class="product-image">
+            </div>
+            <div class="coming-soon">Coming Soon</div> <!-- Added Coming Soon sign -->
+            <h3>Wines</h3>
+            <p class="brief-description">Discover our hand-picked selection of wines, perfect for pairing with your favorite meals or enjoying on their own.</p>
+            <a href="wines.html"><button class="view-more">View More</button></a>
+        </div>
+    </div>
+</section>
+
+
+<!-- Munchie Meals Section -->
+<section id="munchie-meals">
+    <div class="product-container">
+        <div class="product-card">
+            <div class="image-slider munchie-slider">
+                <img src="OIP.jpg" alt="Munchie Meal 1" class="product-image">
+                <img src="pizza.jpg" alt="Munchie Meal 2" class="product-image">
+                <img src="pie.jpg" alt="Munchie Meal 3" class="product-image">
+            </div>
+            <h3>Munchie Meals</h3>
+            <p class="brief-description">Enjoy our mouth-watering infused meals, including pizza, chicken, and more. Perfect for any time of day!</p>
+            <a href="munchie-meals.html"><button class="view-more">View More</button></a>
+        </div>
+    </div>
+</section>
+
+
+    <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p><i class="fa fa-envelope"></i> info@pretoriamunchies.co.za</p>
+            <p><i class="fa fa-phone"></i> +27 670643226</p>
+            <p><i class="fa fa-map-marker"></i> Pretoria, South Africa</p>
+        </div>
+
+        <!-- Newsletter Signup -->
+        <div class="footer-newsletter">
+            <h3>Stay Updated</h3>
+            <p>Sign up for our newsletter to get the latest munchies and offers.</p>
+            <form>
+                <input type="email" placeholder="Enter your email">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+  
+   
+
+    <div class="footer-bottom">
+        <p>&copy; 2024 Pretoria Munchies. All rights reserved.</p>
+    </div>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+	<div class="social-icons">
+        <a href="https://web.facebook.com/ebenca.mohlala" class="icon facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me" class="icon whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://instagram.com" class="icon instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</footer>
+
+    <script>
+        // JavaScript for Burger Menu Toggle and Close Menu
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const closeMenu = document.querySelector('.close-menu');
+
+        burgerMenu.addEventListener('click', () => {
+            navLinks.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
+
+<style>
+/* General styles */
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5DC; /* Wheat color background */
+}
+
+
+
+.logo-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    margin-top: 5px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #2E4600; /* Dark Green */
+}
+
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.burger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #556B2F; /* Olive green */
+    margin: 4px 0;
+}
+
+/* Navigation */
+.nav-links {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #8F6D52;
+    width: 200px;
+    height: 30vh;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 50px;
+}
+
+.nav-links ul li {
+    margin: 20px 0;
+}
+
+.nav-links ul li a {
+    text-decoration: none;
+    color: #F5F5DC; /* Wheat */
+    font-size: 18px;
+}
+
+/* Close menu button */
+.close-menu {
+    font-size: 24px;
+    color: #F5F5DC;
+    text-align: right;
+    cursor: pointer;
+}
+
+/* Active state for the nav */
+.nav-links.active {
+    display: block;
+}
+
+/* Introduction section */
+.intro {
+    padding: 20px;
+    text-align: center;
+    background-color: #F5F5DC;
+}
+
+.intro h2 {
+    font-size: 28px;
+    color: #556B2F;
+}
+
+.intro p {
+    font-size: 18px;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+
+/* Basic styling for product cards */
+
+/* Basic styling for product cards */
+.product-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.product-card {
+    text-align: center;
+    width: 300px;
+    position: relative;
+}
+
+/* Image slider */
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.product-image.active {
+    opacity: 1;
+}
+
+/* Styling for brief description and buttons */
+.brief-description {
+    font-size: 16px;
+    color: #555;
+    margin: 10px 0;
+}
+
+.view-more {
+    padding: 8px 12px;
+    background-color: #b38b59;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.view-more:hover {
+    background-color: #a07444;
+}
+/* Footer Styling */
+footer {
+    background-color: #8F6D52;
+    color: #F5F5DC;
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-container div {
+    flex: 1 1 200px;
+    margin: 20px;
+}
+
+.footer-about,
+.footer-links,
+.footer-contact,
+.footer-newsletter {
+    text-align: left;
+}
+
+.footer-about h3,
+.footer-links h3,
+.footer-contact h3,
+.footer-newsletter h3 {
+    color: #2E4600; /* Dark Green */
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.footer-about p,
+.footer-contact p {
+    color: black;
+    font-size: 16px;
+}
+
+.footer-links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin: 10px 0;
+}
+
+.footer-links ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.footer-links ul li a:hover {
+    color: #A07444; /* Darker shade of brown */
+}
+
+/* Contact Information Links */
+.footer-contact p a {
+    color: #F5F5DC;
+    text-decoration: none;
+}
+
+.footer-contact p a:hover {
+    color: #A07444;
+}
+
+/* Newsletter Form Styling */
+.footer-newsletter form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.footer-newsletter input[type="email"] {
+    padding: 10px;
+    width: 75%;
+    border: none;
+    border-radius: 30px;
+    margin-right: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+.footer-newsletter button {
+    padding: 10px 20px;
+    background-color: #556B2F; /* Olive green */
+    color: #FFF;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.footer-newsletter button:hover {
+    background-color: #2E4600; /* Dark Green */
+}
+
+/* Social Media Icons */
+.footer-social {
+    margin: 30px 0;
+}
+
+.footer-social a {
+    margin: 0 15px;
+    color: #F5F5DC;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #A07444;
+}
+
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAF3E0; /* Light wheat background for a warm, welcoming look */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background-color: #6B4226; /* Dark brown for a rich, earthy header */
+    color: #FAF3E0;
+}
+
+h1 {
+    font-size: 26px;
+    color: #FFD700; /* Gold text for a luxurious feel */
+    margin: 0;
+}
+
+.cart-icon-container {
+    position: relative;
+}
+
+.cart-icon {
+    font-size: 24px;
+    text-decoration: none;
+    color: #FAF3E0;
+}
+
+.cart-count {
+    background-color: #FFD700;
+    color: #6B4226;
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 14px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #FF5733; /* Bright orange for call-to-action buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #C13D20; /* Darker shade on hover */
+}
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.slide:first-child img {
+    display: block; /* Show the first slide by default */
+}
+
+.product-details {
+    background-color: #FFF8DC;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #8B4513; /* Saddle brown for product titles */
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #333;
+    font-size: 16px;
+}
+
+.price {
+    font-size: 18px;
+    color: #C13D20;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+select {
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Footer styles */
+footer {
+    background-color: #6B4226;
+    color: #FAF3E0;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-container div {
+    flex: 1;
+    margin: 10px;
+}
+
+.footer-social a {
+    margin: 0 10px;
+    font-size: 24px;
+    color: #FAF3E0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #FFD700; /* Gold hover effect */
+}
+
+.footer-newsletter input[type="email"] {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    width: 70%;
+    margin-right: 10px;
+}
+
+.footer-newsletter button {
+    padding: 10px 20px;
+    background-color: #FF5733;
+    color: #FAF3E0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.footer-newsletter button:hover {
+    background-color: #C13D20;
+}
+</style>
+
+
+
+
+
+</style>
+<script>
+// Function to handle image slider for each product category
+function imageSlider(sliderClass) {
+    const slides = document.querySelectorAll(`.${sliderClass} .product-image`);
+    let currentSlide = 0;
+
+    // Function to show the next slide
+    function showNextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Set interval to change slides every 5 seconds
+    setInterval(showNextSlide, 5000);
+}
+
+// Initialize sliders for each section
+imageSlider('edibles-slider');
+imageSlider('wines-slider');
+imageSlider('munchie-slider');
+
+let products = [
+            'Brownies',
+            'Muffins',
+            'Cocoa Chip Cookies',
+            'Gummies',
+            'Cakes',
+            'Pizza',
+            'Chicken Wings',
+            'Spaghetti'
+        ];
+
+        function autocomplete(input) {
+            const listContainer = document.getElementById('suggestions');
+            listContainer.innerHTML = ''; // Clear previous suggestions
+
+            const query = input.value.toLowerCase();
+            if (!query) {
+                listContainer.classList.remove('show'); // Hide dropdown if query is empty
+                return; // Exit if query is empty
+            }
+
+            // Show all products that include the query anywhere in their name
+            const filteredProducts = products.filter(product => product.toLowerCase().includes(query));
+            filteredProducts.forEach(product => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.textContent = product;
+                suggestionItem.classList.add('suggestion-item');
+                suggestionItem.onclick = () => selectSuggestion(product);
+                listContainer.appendChild(suggestionItem);
+            });
+
+            // Show or hide the suggestions based on the results
+            if (filteredProducts.length > 0) {
+                listContainer.classList.add('show'); // Show dropdown
+            } else {
+                listContainer.classList.remove('show'); // Hide dropdown if no matches
+            }
+        }
+
+        function selectSuggestion(product) {
+            const input = document.getElementById('search-input');
+            input.value = product; // Set input value to selected suggestion
+            document.getElementById('suggestions').innerHTML = ''; // Clear suggestions
+            document.getElementById('suggestions').classList.remove('show'); // Hide dropdown
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const query = event.target.search.value.toLowerCase();
+
+            // Redirect based on search query
+            if (query.includes('brownie') || query.includes('muffin') || query.includes('cookie') || query.includes('gummy') || query.includes('cake')) {
+                window.location.href = 'edibles.html';
+            } else if (query.includes('pizza') || query.includes('wings') || query.includes('spaghetti')) {
+                window.location.href = 'munchie-meals.html';
+            } else {
+                alert('Product not found!');
+            }
+        }
+		
+		
+ </script> 
+</body>
+</html>
+
+<style>
+
+</style>
+<script>
+    // Function to check if the user has rated
+    function hasRated() {
+        return localStorage.getItem('rated') === 'true';
+    }
+
+    // Function to show the rate prompt
+    function showRatePrompt() {
+        const rateMePopup = document.getElementById('rateMePopup');
+        rateMePopup.style.display = 'block'; // Show the rate me popup
+    }
+
+    // Function to hide the rate prompt
+    function hideRatePrompt() {
+        const rateMePopup = document.getElementById('rateMePopup');
+        rateMePopup.style.display = 'none'; // Hide the rate me popup
+    }
+
+    // Function to set rated status
+    function rateNow() {
+        localStorage.setItem('rated', 'true'); // Store rated status in localStorage
+        hideRatePrompt(); // Hide the rate me popup
+        alert('Thank you for your feedback!'); // Optional: You can remove this alert
+    }
+
+    // Function to trigger the rating prompt for the first-time user
+    function handleRatingPopup() {
+        if (!hasRated()) {
+            // Show popup after 30 seconds
+            setTimeout(() => {
+                showRatePrompt();
+
+                // If no response after 3 minutes (180,000 ms), show it again
+                setTimeout(() => {
+                    if (!hasRated()) {
+                        showRatePrompt();
+                    }
+                }, 180000);
+            }, 30000); // 30,000 ms = 30 seconds
+        }
+    }
+
+    // Call the handleRatingPopup function on page load
+    window.onload = function() {
+        handleRatingPopup();
+    };
+</script>
+
+<!-- Rate Me Popup HTML -->
+<div id="rateMePopup" style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: white; border: 1px solid #ccc; padding: 20px; width: 300px; z-index: 1000;">
+    <h3>Rate Us</h3>
+    <p>How do you like our website?</p>
+    <button onclick="rateNow()">👍 Great!</button>
+    <button onclick="hideRatePrompt()">👎 Not now</button>
+</div>

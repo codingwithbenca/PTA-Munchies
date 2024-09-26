@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edibles - Pretoria Munchies</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Your CSS file -->
+    <script>
+        const prices = {
+		brownie: { base: 100, high: 110, snoop: 120 },
+        muffin: { base: 70, high: 90, snoop: 120 },
+        cookie: { base: 60, high: 80, snoop: 110 },
+        gummy: { base: 250, high: 290, snoop: 310 },
+        cake: { base: 180, high: 210, snoop: 240 }
+    };
+
+    function updatePrice(product) {
+        let basePrice = prices[product].base;
+        let price = basePrice;
+
+        const strengthSelect = document.getElementById(`${product}-strength`).value;
+
+        if (strengthSelect === 'high') {
+            price = prices[product].high;
+        } else if (strengthSelect === 'snoop-high') {
+            price = prices[product].snoop;
+        }
+
+        document.getElementById(`${product}-price`).textContent = `R${price}`;
+    }
+
+    function addToCart(product) {
+        const strengthSelect = document.getElementById(`${product}-strength`).value;
+        let price = prices[product].base;
+
+        if (strengthSelect === 'high') {
+            price = prices[product].high;
+        } else if (strengthSelect === 'snoop-high') {
+            price = prices[product].snoop;
+        }
+
+        alert(`${product.charAt(0).toUpperCase() + product.slice(1)} (Strength: ${strengthSelect}) added to cart! Price: R${price}`);
+        // Add your cart logic here, saving the product with its strength and price
+    }
+	
+       
+		
+let cart = []; // Initialize the cart
+
+// Function to add items to the cart
+function addToCart(product) {
+    const flavorSelect = document.getElementById(`${product}-flavor`) || {};
+    const strengthSelect = document.getElementById(`${product}-strength`);
+    const flavor = flavorSelect.value || "N/A"; // Default flavor if not applicable
+    const strength = strengthSelect.value;
+    const quantity = 1; // Assume a quantity of 1 for simplicity
+
+    const cartItem = {
+        product: product,
+        flavor: flavor,
+        strength: strength,
+        price: prices[product][strength] || prices[product].base,
+        quantity: quantity
+    };
+
+    cart.push(cartItem);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount(); // Update cart count
+    alert(`${product.charAt(0).toUpperCase() + product.slice(1)} added to cart!`);
+}
+
+// Function to remove items from the cart
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount(); // Update cart count
+    viewCart(); // Refresh the cart display
+}
+
+// Function to view cart items
+function viewCart() {
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartOutput = "Your Cart:\n";
+
+    if (cartItems.length === 0) {
+        cartOutput += "Your cart is empty.";
+    } else {
+        cartItems.forEach((item, index) => {
+            cartOutput += `${item.quantity} x ${item.product.charAt(0).toUpperCase() + item.product.slice(1)} - R${item.price} (Flavor: ${item.flavor}, Strength: ${item.strength})\n`;
+            cartOutput += `Remove: <button onclick="removeFromCart(${index})">Remove</button>\n`; // Remove button
+        });
+    }
+
+    alert(cartOutput);
+}
+
+// Function to calculate total price of cart items
+function calculateTotal() {
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    let total = 0;
+    cartItems.forEach(item => {
+        total += item.price * item.quantity; // Calculate total based on quantity
+    });
+    return total.toFixed(2); // Return total rounded to 2 decimal places
+}
+
+// Function to checkout and clear cart
+function checkout() {
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cartItems.length === 0) {
+        alert("Your cart is empty. Add items to the cart before checking out.");
+        return;
+    }
+
+    let message = "Your order:\n";
+    cartItems.forEach(item => {
+        message += `${item.quantity} x ${item.product.charAt(0).toUpperCase() + item.product.slice(1)} - R${item.price} (Flavor: ${item.flavor}, Strength: ${item.strength})\n`;
+    });
+
+    const total = calculateTotal(); // Get the total
+    message += `\nTotal: R${total}\n`; // Add total to the message
+
+    // Send the message via WhatsApp
+    const phoneNumber = "+27670643226"; // Your phone number
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+    
+    // Clear the cart and refresh the page
+    localStorage.removeItem('cart'); // Remove the cart from local storage
+    window.open(whatsappLink, '_blank'); // Open the WhatsApp link
+    setTimeout(() => {
+        location.reload(); // Refresh the page after 1 second
+    }, 1000);
+}
+
+// Function to update the cart count display
+function updateCartCount() {
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = cartItems.length;
+    document.getElementById('cart-count').textContent = cartCount; // Update cart count in the DOM
+}
+
+// Call this function on page load to update the cart count
+window.onload = updateCartCount;
+
+        
+
+// Function to start the slideshow for a given container
+function startSlideshow(containerId) {
+    const container = document.getElementById(containerId);
+    const slides = container.getElementsByClassName('slide');
+    let currentSlide = 0;
+
+    setInterval(() => {
+        // Hide the current slide
+        slides[currentSlide].style.display = 'none'; 
+
+        // Move to the next slide
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        // Show the next slide
+        slides[currentSlide].style.display = 'block';
+    }, 3000); // Change the slide every 3 seconds
+}
+
+// Start the slideshow for each product's slideshow container
+document.addEventListener('DOMContentLoaded', function() {
+    startSlideshow('brownie-slideshow');
+    startSlideshow('muffin-slideshow');
+    startSlideshow('cake-slideshow');
+});
+
+		
+// Function to start the slideshow for a given container
+function startSlideshow(containerId) {
+    const container = document.getElementById(containerId);
+    const slides = container.getElementsByClassName('slide');
+    let currentSlide = 0;
+
+    setInterval(() => {
+        // Hide the current slide
+        slides[currentSlide].style.display = 'none'; 
+
+        // Move to the next slide
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        // Show the next slide
+        slides[currentSlide].style.display = 'block';
+    }, 3000); // Change the slide every 3 seconds
+}
+
+// Start the slideshow for each product's slideshow container
+document.addEventListener('DOMContentLoaded', function() {
+    startSlideshow('brownie-slideshow');
+    startSlideshow('muffin-slideshow');
+    startSlideshow('cake-slideshow');
+});
+
+
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>Edibles</h1>
+    <div class="cart-icon-container">
+        <!-- Cart Icon -->
+        <a href="#cart" class="cart-icon" onclick="viewCart()">
+            🛒 <span id="cart-count">0</span>
+        </a>
+    </div>
+    <button onclick="checkout()">Checkout</button>
+</header>
+
+<main>
+    <section class="product-details">
+    <h2>Brownies</h2>
+    <div class="slideshow-container" id="brownie-slideshow">
+        <div class="slide">
+            <img src="2.jpg" alt="Brownie Image 1">
+        </div>
+        <div class="slide">
+            <img src="3.jpg" alt="Brownie Image 2">
+        </div>
+        <div class="slide">
+            <img src="4.jpg" alt="Brownie Image 3">
+        </div>
+    </div>
+    <p>Delicious infused brownies, perfectly balanced for a rich chocolate taste. A great choice for dessert lovers.</p>
+    <span class="price" id="brownie-price">R100 for 6</span>
+
+    <label for="brownie-strength">Choose your strength:</label>
+    <select id="brownie-strength" onchange="updatePrice('brownie')">
+        <option value="moderate">Moderate</option>
+        <option value="high">High</option><!--add by 20-->
+        <option value="snoop-high">Snoop High</option><!--add by 40-->
+    </select>
+    
+    <button onclick="addToCart('brownie')">Add to Cart</button>
+</section>
+
+<!-- Muffins Section -->
+    <section class="product-details">
+        <h2>Muffins</h2>
+        <div class="slideshow-container" id="muffin-slideshow">
+            <div class="slide">
+                <img src="cookie 3.jpg" alt="Muffin Image 1">
+            </div>
+            <div class="slide">
+                <img src="muff.jpg" alt="Muffin Image 2">
+            </div>
+            <div class="slide">
+                <img src="muff 2.jpg" alt="Muffin Image 3">
+            </div>
+        </div>
+        <p>Freshly baked infused muffins, perfect for a sweet snack. Choose your favorite flavor below.</p>
+        <span class="price" id="muffin-price">R70 for 6</span>
+
+        <label for="muffin-flavor">Choose your flavor:</label>
+        <select id="muffin-flavor">
+            <option value="red-velvet">Red Velvet</option>
+            <option value="vanilla-cake">Vanilla Cake</option>
+            <option value="chocolate-chip">Chocolate Chip</option>
+        </select>
+
+        <label for="muffin-strength">Choose your strength:</label>
+        <select id="muffin-strength" onchange="updatePrice('muffin')">
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option><!--add by 20-->
+            <option value="snoop-high">Snoop High</option><!--add by 40-->
+        </select>
+        
+        <button onclick="addToCart('muffin')">Add to Cart</button>
+    </section>
+    
+ <!-- Cocoa Chip Cookies Section -->
+    <section class="product-details">
+        <h2>Cocoa Chip Cookies</h2>
+        <div class="slideshow-container" id="cookie-slideshow">
+            <div class="slide">
+                <img src="cookie.jpg" alt="Cookie Image 1">
+            </div>
+            <div class="slide">
+                <img src="cookie2.jpg" alt="Cookie Image 2">
+            </div>
+            <div class="slide">
+                <img src="cookie3.jpg" alt="Cookie Image 3">
+            </div>
+        </div>
+        <p>Crispy on the edges and gooey in the center, our infused cocoa chip cookies are a perfect treat for any cookie lover.</p>
+        <span class="price" id="cookie-price">R60 for 8</span>
+
+        <label for="cookie-strength">Choose your strength:</label>
+        <select id="cookie-strength" onchange="updatePrice('cookie')">
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option><!--add by 20-->
+            <option value="snoop-high">Snoop High</option><!--add by 40-->
+        </select>
+        
+        <button onclick="addToCart('cookie')">Add to Cart</button>
+    </section>
+    
+<!-- Gummies Section -->
+    <section class="product-details">
+        <h2>Gummies</h2>
+        <div class="slideshow-container" id="gummy-slideshow">
+            <div class="slide">
+                <img src="download.jpg" alt="Gummy Image 1">
+            </div>
+            <div class="slide">
+                <img src="gummy2.jpg" alt="Gummy Image 2">
+            </div>
+            <div class="slide">
+                <img src="gummy3.jpg" alt="Gummy Image 3">
+            </div>
+        </div>
+        <p>Assorted flavors of infused gummies for a sweet and fun treat.</p>
+        <span class="price" id="gummy-price">R250 each</span>
+
+        <label for="gummy-strength">Choose your strength:</label>
+        <select id="gummy-strength" onchange="updatePrice('gummy')">
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option><!--add by 40-->
+            <option value="snoop-high">Snoop High</option><!--add by 60-->
+        </select>
+        
+        <button onclick="addToCart('gummy')">Add to Cart</button>
+    </section>
+  
+
+ <!-- Cakes Section -->
+    <section class="product-details">
+        <h2>Cakes</h2>
+        <div class="slideshow-container" id="cake-slideshow">
+            <div class="slide">
+                <img src="cake1.jpg" alt="Cake Image 1">
+            </div>
+            <div class="slide">
+                <img src="cake 2.jpg" alt="Cake Image 2">
+            </div>
+            <div class="slide">
+                <img src="cake 3.jpg" alt="Cake Image 3">
+            </div>
+        </div>
+        <p>Indulge in our rich, infused cakes, perfect for any celebration or treat. Choose your flavor below.</p>
+        <span class="price" id="cake-price">R180 each</span>
+
+        <label for="cake-flavor">Choose your flavor:</label>
+        <select id="cake-flavor">
+            <option value="vanilla">Vanilla</option>
+            <option value="chocolate">Chocolate</option>
+            <option value="red-velvet">Red Velvet</option>
+        </select>
+
+        <label for="cake-strength">Choose your strength:</label>
+        <select id="cake-strength" onchange="updatePrice('cake')">
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option><!--add by 30-->
+            <option value="snoop-high">Snoop High</option><!--add by 40-->
+        </select>
+        
+        <button onclick="addToCart('cake')">Add to Cart</button>
+    </section>
+</main>
+
+<footer>
+     <div class="footer-bottom">
+        <p>&copy; 2024 Pretoria Munchies. All rights reserved.</p>
+    </div>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+	<div class="social-icons">
+        <a href="https://facebook.com" class="icon facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me" class="icon whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://instagram.com" class="icon instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</footer>
+
+</body>
+</html>
+<style>
+
+.cart-icon {
+    display: inline-flex; /* Aligns items in a row */
+    align-items: center; /* Centers items vertically */
+    background-color: #007bff; /* A blue background */
+    color: white; /* White text color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 8px 12px; /* Padding for some space */
+    font-size: 16px; /* Font size */
+    text-decoration: none; /* No underline for links */
+    transition: background-color 0.3s; /* Smooth background color change */
+}
+
+.cart-icon:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+#cart-count {
+    background-color: #dc3545; /* Red background for the count */
+    border-radius: 50%; /* Circular background */
+    padding: 2px 6px; /* Padding for some space */
+    margin-left: 5px; /* Space between the icon and the count */
+    font-weight: bold; /* Bold text */
+    font-size: 14px; /* Font size */
+    color: white; /* White text color */
+    position: relative; /* Positioning for the circle */
+}
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Adjust as needed */
+    overflow: hidden;
+}
+
+/* Slide images */
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    animation: slideAnimation 3s ease-in-out infinite;
+}
+
+/* Make the first slide visible */
+.slide:nth-child(1) {
+    display: block;
+}
+
+/* Keyframes for 3D sliding motion */
+@keyframes slideAnimation {
+    0% {
+        transform: translateX(100%) rotateY(0);
+        opacity: 0;
+    }
+    25% {
+        transform: translateX(0) rotateY(-10deg);
+        opacity: 1;
+    }
+    75% {
+        transform: translateX(0) rotateY(10deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%) rotateY(0);
+        opacity: 0;
+    }
+}
+
+/* Additional styling for images */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAF3E0; /* Light wheat background for a warm, welcoming look */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #6B4226; /* Dark brown for a rich, earthy header */
+    color: #FAF3E0;
+}
+
+h1 {
+    font-size: 26px;
+    color: #FFD700; /* Gold text for a luxurious feel */
+    margin: 0;
+}
+
+.cart-icon-container {
+    position: relative;
+}
+
+.cart-icon {
+    font-size: 24px;
+    text-decoration: none;
+    color: #FAF3E0;
+}
+
+.cart-count {
+    background-color: #FFD700;
+    color: #6B4226;
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 14px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #FF5733; /* Bright orange for call-to-action buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #C13D20; /* Darker shade on hover */
+}
+
+
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.slide:first-child img {
+    display: block; /* Show the first slide by default */
+}
+
+.product-details {
+    background-color: #FFF8DC;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #8B4513; /* Saddle brown for product titles */
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #333;
+    font-size: 16px;
+}
+
+.price {
+    font-size: 18px;
+    color: #C13D20;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+select {
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Footer styles */
+footer {
+    background-color: #6B4226;
+    color: #FAF3E0;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-container div {
+    flex: 1;
+    margin: 10px;
+}
+
+.footer-social a {
+    margin: 0 10px;
+    font-size: 24px;
+    color: #FAF3E0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #FFD700; /* Gold hover effect */
+}
+
+.footer-newsletter input[type="email"] {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    width: 70%;
+    margin-right: 10px;
+}
+
+.footer-newsletter button {
+    padding: 10px 20px;
+    background-color: #FF5733;
+    color: #FAF3E0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.footer-newsletter button:hover {
+    background-color: #C13D20;
+}
+
+</style>

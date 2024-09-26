@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+		 <section id="contact">
+        <h1>Contact Us</h1>
+
+    </section
+    </header>
+
+   >
+</body>
+</html>
+<script>
+        // JavaScript for Burger Menu Toggle and Close Menu
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const closeMenu = document.querySelector('.close-menu');
+
+        burgerMenu.addEventListener('click', () => {
+            navLinks.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+    </script>
+	<style>
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5DC; /* Wheat color background */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #8F6D52; /* Brown */
+}
+
+.logo-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    margin-top: 5px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #2E4600; /* Dark Green */
+}
+
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.burger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #556B2F; /* Olive green */
+    margin: 4px 0;
+}
+
+/* Navigation */
+.nav-links {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #8F6D52;
+    width: 200px;
+    height: 50vh;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 50px;
+}
+
+.nav-links ul li {
+    margin: 20px 0;
+}
+
+.nav-links ul li a {
+    text-decoration: none;
+    color: #F5F5DC; /* Wheat */
+    font-size: 18px;
+}
+
+/* Close menu button */
+.close-menu {
+    font-size: 24px;
+    color: #F5F5DC;
+    text-align: right;
+    cursor: pointer;
+}
+
+/* Active state for the nav */
+.nav-links.active {
+    display: block;
+}
+
+/* Introduction section */
+.intro {
+    padding: 20px;
+    text-align: center;
+    background-color: #F5F5DC;
+}
+
+.intro h2 {
+    font-size: 28px;
+    color: #556B2F;
+}
+
+.intro p {
+    font-size: 18px;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+
+/* Basic styling for product cards */
+
+/* Basic styling for product cards */
+.product-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.product-card {
+    text-align: center;
+    width: 300px;
+    position: relative;
+}
+
+/* Image slider */
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.product-image.active {
+    opacity: 1;
+}
+
+/* Styling for brief description and buttons */
+.brief-description {
+    font-size: 16px;
+    color: #555;
+    margin: 10px 0;
+}
+
+.view-more {
+    padding: 8px 12px;
+    background-color: #b38b59;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.view-more:hover {
+    background-color: #a07444;
+}
+/* Footer Styling */
+footer {
+    background-color: #8F6D52;
+    color: #F5F5DC;
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-container div {
+    flex: 1 1 200px;
+    margin: 20px;
+}
+
+.footer-about,
+.footer-links,
+.footer-contact,
+.footer-newsletter {
+    text-align: left;
+}
+
+.footer-about h3,
+.footer-links h3,
+.footer-contact h3,
+.footer-newsletter h3 {
+    color: #2E4600; /* Dark Green */
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.footer-about p,
+.footer-contact p {
+    color: black;
+    font-size: 16px;
+}
+
+.footer-links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin: 10px 0;
+}
+
+.footer-links ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.footer-links ul li a:hover {
+    color: #A07444; /* Darker shade of brown */
+}
+
+/* Contact Information Links */
+.footer-contact p a {
+    color: #F5F5DC;
+    text-decoration: none;
+}
+
+.footer-contact p a:hover {
+    color: #A07444;
+}
+
+/* Newsletter Form Styling */
+.footer-newsletter form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.footer-newsletter input[type="email"] {
+    padding: 10px;
+    width: 75%;
+    border: none;
+    border-radius: 30px;
+    margin-right: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+.footer-newsletter button {
+    padding: 10px 20px;
+    background-color: #556B2F; /* Olive green */
+    color: #FFF;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.footer-newsletter button:hover {
+    background-color: #2E4600; /* Dark Green */
+}
+
+/* Social Media Icons */
+.footer-social {
+    margin: 30px 0;
+}
+
+.footer-social a {
+    margin: 0 15px;
+    color: #F5F5DC;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #A07444;
+}
+
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAF3E0; /* Light wheat background for a warm, welcoming look */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #6B4226; /* Dark brown for a rich, earthy header */
+    color: #FAF3E0;
+}
+
+h1 {
+    font-size: 26px;
+    color: #FFD700; /* Gold text for a luxurious feel */
+    margin: 0;
+}
+
+.cart-icon-container {
+    position: relative;
+}
+
+.cart-icon {
+    font-size: 24px;
+    text-decoration: none;
+    color: #FAF3E0;
+}
+
+.cart-count {
+    background-color: #FFD700;
+    color: #6B4226;
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 14px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #FF5733; /* Bright orange for call-to-action buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #C13D20; /* Darker shade on hover */
+}
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.slide:first-child img {
+    display: block; /* Show the first slide by default */
+}
+
+.product-details {
+    background-color: #FFF8DC;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #8B4513; /* Saddle brown for product titles */
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #333;
+    font-size: 16px;
+}
+
+.price {
+    font-size: 18px;
+    color: #C13D20;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+select {
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Footer styles */
+footer {
+    background-color: #6B4226;
+    color: #FAF3E0;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-container div {
+    flex: 1;
+    margin: 10px;
+}
+
+.footer-social a {
+    margin: 0 10px;
+    font-size: 24px;
+    color: #FAF3E0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #FFD700; /* Gold hover effect */
+}
+
+.footer-newsletter input[type="email"] {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    width: 70%;
+    margin-right: 10px;
+}
+
+.footer-newsletter button {
+    padding: 10px 20px;
+    background-color: #FF5733;
+    color: #FAF3E0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.footer-newsletter button:hover {
+    background-color: #C13D20;
+}
+
+</style>
